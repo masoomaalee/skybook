@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyBook | Flight Booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="#" class="logo">✈ SkyBook</a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#flights">Flights</a>
+            <a href="#destinations">Destinations</a>
+            <a href="#about">About</a>
+            <button onclick="viewSavedBooking()" class="my-booking-btn">
+    My Bookings
+</button>
+        </nav>
+
+        <a href="#flights" class="nav-btn">Book a Flight</a>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <span class="tagline">EXPLORE THE WORLD WITH SKYBOOK</span>
+
+            <h1>Your Journey<br>
+                Begins <span>Here.</span>
+            </h1>
+
+            <p>
+                Discover amazing destinations, compare flights
+                and make your next journey unforgettable.
+            </p>
+
+            <a href="#flights" class="hero-btn">Explore Flights →</a>
+        </div>
+    </section>
+
+    <!-- FLIGHT SEARCH -->
+    <section class="search-section" id="flights">
+
+        <div class="section-heading">
+            <h2>Find Your Flight</h2>
+            <p>Search and discover your next destination.</p>
+        </div>
+
+        <form id="flightSearchForm">
+
+            <div class="search-box">
+
+                <div class="field">
+                    <label for="from">From</label>
+                    <select id="from" required>
+                        <option value="">Select departure</option>
+                        <option value="Quetta">Quetta</option>
+                        <option value="Karachi">Karachi</option>
+                        <option value="Lahore">Lahore</option>
+                        <option value="Islamabad">Islamabad</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="to">To</label>
+
+<select id="to" required>
+    <option value="">Select destination</option>
+
+    <optgroup label="Pakistan">
+        <option value="Karachi">Karachi</option>
+        <option value="Lahore">Lahore</option>
+        <option value="Islamabad">Islamabad</option>
+        <option value="Skardu">Skardu</option>
+        <option value="Quetta">Quetta</option>
+    </optgroup>
+
+    <optgroup label="International">
+        <option value="Dubai">Dubai</option>
+        <option value="Istanbul">Istanbul</option>
+        <option value="London">London</option>
+        <option value="Paris">Paris</option>
+        <option value="Doha">Doha</option>
+        <option value="Riyadh">Riyadh</option>
+        <option value="Baku">Baku</option>
+        <option value="Jeddah">Jeddah</option>
+    </optgroup>
+</select>
+
+
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="departure">Departure Date</label>
+                    <input type="date" id="departure" required>
+                </div>
+
+                <div class="field">
+                    <label for="passengers">Passengers</label>
+                    <select id="passengers">
+                        <option value="1">1 Passenger</option>
+                        <option value="2">2 Passengers</option>
+                        <option value="3">3 Passengers</option>
+                        <option value="4">4 Passengers</option>
+                        <option value="5">5 Passengers</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="search-btn">
+                    Search Flights
+                </button>
+
+            </div>
+        </form>
+
+<!-- FLIGHT FILTERS -->
+
+<div class="flight-filters">
+
+    <h3>Filter Flights</h3>
+
+    <select id="priceFilter">
+        <option value="default">Sort by Price</option>
+        <option value="low">Lowest Price First</option>
+        <option value="high">Highest Price First</option>
+    </select>
+
+    <select id="airlineFilter">
+        <option value="all">All Airlines</option>
+        <option value="PIA">PIA</option>
+        <option value="Airblue">Airblue</option>
+        <option value="Serene Air">Serene Air</option>
+    </select>
+
+    <select id="timeFilter">
+        <option value="all">All Departure Times</option>
+        <option value="morning">Morning</option>
+        <option value="afternoon">Afternoon</option>
+        <option value="evening">Evening</option>
+    </select>
+
+</div>
+
+        <div id="flightResults"></div>
+
+<!-- IN-FLIGHT DETAILS POPUP -->
+
+<div class="flight-details-modal" id="flightDetailsModal">
+
+    <div class="flight-details-container">
+
+        <button class="flight-details-close" onclick="closeFlightDetails()">×</button>
+
+        <div class="flight-details-header">
+            <span>SKYBOOK EXPERIENCE</span>
+            <h2 id="detailsAirline">Your Flight Experience</h2>
+            <p id="detailsRoute">Explore your journey with us</p>
+        </div>
+
+        <div class="flight-main-image">
+            <img
+                src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200"
+                alt="Airplane above clouds">
+        </div>
+
+        <div class="flight-services">
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1608023136037-626dad6c6188?w=600" alt="Airplane seat">
+                <h3>Seat Selection</h3>
+                <p>Explore Economy, Business and First Class options.</p>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600" alt="Food and meals">
+                <h3>Food & Drinks</h3>
+                <p>Discover meal and refreshment options.</p>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1723378310335-7056d36bea98?w=600" alt="Entertainment">
+                <h3>Entertainment</h3>
+                <p>Movies, music and entertainment options.</p>
+            </div>
+
+            <div class="service-card">
+                <img src="https://osusume.mynavi.jp/uploads/content/image/183248/rf108088439_o.jpg" alt="Travel baggage">
+                <h3>Baggage Allowance</h3>
+                <p>View cabin and checked baggage information.</p>
+            </div>
+
+        </div>
+
+        <p class="demo-note">
+            Note: These are sample demo services, not confirmed airline facilities.
+        </p>
+<button class="details-book-btn" id="detailsBookButton">
+    Book This Flight
+</button>
+
+        <button class="details-close-btn" onclick="closeFlightDetails()">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<!-- TICKET MODAL -->
+<div id="ticketModal" class="ticket-modal">
+    <div class="ticket-container">
+
+        <button class="close-ticket" onclick="closeTicket()">×</button>
+
+        <div id="ticketContent"></div>
+
+        <div class="ticket-actions">
+            <button onclick="window.print()" class="download-ticket">
+                Download / Print Ticket
+            </button>
+
+            <button onclick="closeTicket()" class="close-btn">
+                Close
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+    </section>
+
+    <!-- DESTINATIONS -->
+    <section class="destinations" id="destinations">
+
+        <div class="section-heading">
+            <h2>Popular Destinations</h2>
+            <p>Explore beautiful places around the world.</p>
+        </div>
+
+        <div class="destination-grid">
+
+            <div class="destination-card" data-destination="Istanbul">
+                <img src="https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?w=600"
+                     alt="Istanbul">
+                <h3>Istanbul</h3>
+                <p>Turkey</p>
+            </div>
+
+            <div class="destination-card" data-destination="Dubai">
+                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600"
+                     alt="Dubai">
+                <h3>Dubai</h3>
+                <p>United Arab Emirates</p>
+            </div>
+
+           <div class="destination-card" data-destination="Paris">
+                <img src="https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=600"
+                     alt="Paris">
+                <h3>Paris</h3>
+                <p>France</p>
+            </div>
+
+        </div>
+    </section>
+
+<!-- DESTINATION POPUP -->
+
+<div class="destination-modal" id="destinationModal">
+
+    <div class="destination-popup">
+
+        <button class="popup-close" onclick="closeDestination()">×</button>
+
+        <h2 id="popupTitle">Dubai</h2>
+        <p id="popupDescription">Explore beautiful destinations.</p>
+
+        <div class="popup-gallery" id="popupGallery"></div>
+        <div class="destination-info">
+    <h3>About This Destination</h3>
+    <p id="popupAbout"></p>
+
+    <h3>Famous Places to Visit</h3>
+    <ul id="popupPlaces"></ul>
+</div>
+
+        <button class="explore-btn" id="exploreFlights">
+            Explore Flights →
+        </button>
+
+    </div>
+
+</div>
+
+<!-- DESTINATION WEATHER SECTION -->
+
+<section class="weather-section" id="weather">
+
+    <div class="weather-heading">
+        <span>TRAVEL WEATHER</span>
+        <h2>Explore Weather Around The World</h2>
+        <p>Check the weather before planning your next journey.</p>
+    </div>
+
+    <div class="weather-card">
+
+        <div class="weather-top">
+            <div>
+                <h3 id="weatherCity">Istanbul, Turkey</h3>
+                <p id="weatherCondition">Partly Cloudy</p>
+            </div>
+
+            <div class="weather-icon" id="weatherIcon">⛅</div>
+        </div>
+
+        <div class="weather-temperature">
+            <span id="weatherTemp">22°</span>
+            <span>C</span>
+        </div>
+
+        <div class="weather-details">
+
+            <div class="weather-detail">
+                <span>💧</span>
+                <div>
+                    <small>Humidity</small>
+                    <h4 id="weatherHumidity">65%</h4>
+                </div>
+            </div>
+
+            <div class="weather-detail">
+                <span>💨</span>
+                <div>
+                    <small>Wind Speed</small>
+                    <h4 id="weatherWind">12 km/h</h4>
+                </div>
+            </div>
+
+            <div class="weather-detail">
+                <span>🌡️</span>
+                <div>
+                    <small>Feels Like</small>
+                    <h4 id="weatherFeels">21°C</h4>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="weather-select">
+            <label for="weatherCitySelect">Choose Destination</label>
+
+            <select id="weatherCitySelect">
+                <option value="Istanbul">Istanbul</option>
+                <option value="Dubai">Dubai</option>
+                <option value="Paris">Paris</option>
+                <option value="Quetta">Quetta</option>
+                <option value="Karachi">Karachi</option>
+                <option value="Lahore">Lahore</option>
+                <option value="London">London</option>
+                <option value="Islamabad">Islamabad</option>
+                <option value="Skardu">Skardu</option>
+            </select>
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <h2>Travel More. Worry Less.</h2>
+        <p>
+            SkyBook makes flight searching and demo booking
+            simple, convenient and enjoyable.
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <h2>✈ SkyBook</h2>
+        <p>Your journey, our priority.</p>
+        <p>© 2026 SkyBook. Demo Booking Website.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
